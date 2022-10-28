@@ -91,7 +91,11 @@ const deselect = (cardsSelected) => {
             let cardTwo = document.getElementById("cards-" + cardsSelected[1])
             cardOne.style.transform = "rotateY(0deg)";
             cardTwo.style.transform = "rotateY(0deg)";
-        }else{
+            card1.style.background = "red";
+            card2.style.background = "red";
+            selected = [];
+        }
+        else{
             card1.style.background = "green";
             card2.style.background = "green";
             selected = [];
@@ -101,9 +105,9 @@ const deselect = (cardsSelected) => {
                     <div class="row text-center">
                         <h3>Completado</h3>
                         <h3>Total de intentos: <span class="text-muted fw-bold">${tries}</span></h3>
+                        <button id="start" class=" mt-3 btn btn-lg btn-outline-success" onclick="newGame()">Jugar de nuevo</button>
                     </div>
                     `
-                    // <button id="start" class=" mt-3 btn btn-lg btn-outline-success" onclick="newGame()">Jugar de nuevo</button>
             }
         }
     }, 1000);
