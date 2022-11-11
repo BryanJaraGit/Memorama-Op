@@ -40,7 +40,7 @@ const icons = [
     '<i class="fas fa-wheelchair text-dark"></i>',
 ];
 
-let cartas = [];
+let cards = [];
 let selected = [];
 let pairs = 0;
 let tries = 0;
@@ -50,6 +50,7 @@ const newGame = () => {
     cards = [];
     pairs = 0;
     tries = 0;
+
     for (let i = 0; i < 16; i++) {
         cards.push(`
             <div class="card-container" onclick="select(${i})">
@@ -68,6 +69,16 @@ const newGame = () => {
     cards.sort(() => Math.random() - 0.5);
     tablero.innerHTML = cards.join(" ");
 }
+
+const getRandom = () => {
+    const random = Math.floor(Math.random() * icons.length);
+    if(img.indexOf(random) == -1){
+        return random;
+    }else {
+        return getRandom();
+    }
+}
+
 
 const select = (card) => {
     let cardSelected = document.getElementById("cards-" + card);
@@ -89,11 +100,15 @@ const deselect = (cardsSelected) => {
             selected = [];
             let cardOne = document.getElementById("cards-" + cardsSelected[0])
             let cardTwo = document.getElementById("cards-" + cardsSelected[1])
-            cardOne.style.transform = "rotateY(0deg)";
-            cardTwo.style.transform = "rotateY(0deg)";
             card1.style.background = "red";
             card2.style.background = "red";
-            selected = [];
+            setTimeout(() => {
+                cardOne.style.transform = "rotateY(0deg)";
+                cardTwo.style.transform = "rotateY(0deg)";
+                card1.style.background = "white";
+                card2.style.background = "white";
+            }, 1000)
+            
         }
         else{
             card1.style.background = "green";
@@ -103,9 +118,9 @@ const deselect = (cardsSelected) => {
             if(pairs == 8){
                 tablero.innerHTML = `
                     <div class="row text-center">
-                        <h3>Completado</h3>
-                        <h3>Total de intentos: <span class="text-muted fw-bold">${tries}</span></h3>
-                        <button id="start" class=" mt-3 btn btn-lg btn-outline-success" onclick="newGame()">Jugar de nuevo</button>
+                        <h3 class="text-center text-light">Completado</h3>
+                        <h3 class="text-center text-light">Total de intentos: <span class="text-center text-light fw-bold">${tries}</span></h3>
+                        <button id="start" class=" mt-3 btn btn-lg btn-outline-success text-light" onclick="newGame()">Jugar</button>
                     </div>
                     `
             }
